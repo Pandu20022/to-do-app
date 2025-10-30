@@ -113,6 +113,12 @@
             margin-top: 10px;
             visibility: hidden;
         }
+
+        .datetime {
+            margin-top: 15px;
+            color: #d63384;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -129,6 +135,9 @@
         <button onclick="saveTasks()">💾 Save Tasks</button>
         <button onclick="clearAllTasks()">🧹 Clear All</button>
         <button onclick="changeTheme()">🎨 Change Theme</button>
+        <button onclick="showDateTime()">📅 Show Date & Time</button>
+
+        <p id="dateTime" class="datetime"></p>
 
         <p id="saveMessage" class="save-msg">Tasks saved successfully!</p>
     </div>
@@ -139,6 +148,7 @@
         const taskCounter = document.getElementById('taskCounter');
         const saveMessage = document.getElementById('saveMessage');
         const quote = document.getElementById('quote');
+        const dateTime = document.getElementById('dateTime');
         const body = document.body;
 
         const quotes = [
@@ -231,6 +241,12 @@
         function changeTheme() {
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
             body.style.backgroundColor = randomColor;
+        }
+
+        function showDateTime() {
+            const now = new Date();
+            const formatted = now.toLocaleString();
+            dateTime.textContent = "🕒 " + formatted;
         }
 
         taskInput.addEventListener('keypress', (e) => {
