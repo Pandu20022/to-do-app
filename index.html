@@ -17,7 +17,19 @@
 
         h1 {
             color: #ff4da6;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+        }
+
+        .quote {
+            font-size: 16px;
+            color: #ff1a75;
+            margin-bottom: 20px;
+            background: #fff0f5;
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
         }
 
         .counter {
@@ -105,6 +117,7 @@
 <body>
 
     <h1>🌸 Cute To-Do List 🌸</h1>
+    <div class="quote" id="quote">✨ Welcome! Let’s make today productive! ✨</div>
     <div class="counter" id="taskCounter">Total: 0 | Completed: 0</div>
 
     <div class="todo-container">
@@ -123,6 +136,22 @@
         const taskList = document.getElementById('taskList');
         const taskCounter = document.getElementById('taskCounter');
         const saveMessage = document.getElementById('saveMessage');
+        const quote = document.getElementById('quote');
+
+        const quotes = [
+            "💪 You’ve got this!",
+            "🌞 Keep shining bright!",
+            "🎯 Focus and conquer your goals!",
+            "🌸 Small steps lead to big success!",
+            "✨ Believe in yourself — you’re amazing!",
+            "🌈 Every task done is a win!",
+            "🌻 You’re doing great, keep going!"
+        ];
+
+        function showRandomQuote() {
+            const random = Math.floor(Math.random() * quotes.length);
+            quote.textContent = quotes[random];
+        }
 
         function updateCounter() {
             const total = taskList.children.length;
@@ -160,9 +189,9 @@
 
             taskInput.value = "";
             updateCounter();
+            showRandomQuote();
         }
 
-        // Save tasks to localStorage
         function saveTasks() {
             const tasks = [];
             document.querySelectorAll('#taskList li').forEach(li => {
@@ -177,19 +206,18 @@
             setTimeout(() => saveMessage.style.visibility = "hidden", 1500);
         }
 
-        // Load tasks from localStorage
         function loadTasks() {
             const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
             savedTasks.forEach(task => addTask(task.text, task.completed));
         }
 
-        // Clear all tasks (with confirmation)
         function clearAllTasks() {
             if (confirm("🧹 Are you sure you want to clear all your cute tasks?")) {
                 taskList.innerHTML = "";
                 localStorage.removeItem('tasks');
                 updateCounter();
                 alert("✨ All tasks cleared!");
+                quote.textContent = "🌼 Fresh start! You can do it!";
             }
         }
 
