@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
+    <title>Cute To-Do List</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
@@ -13,6 +13,7 @@
             align-items: center;
             padding: 50px;
             min-height: 100vh;
+            transition: background-color 0.5s ease;
         }
 
         h1 {
@@ -116,7 +117,7 @@
 </head>
 <body>
 
-    <h1>To-Do List</h1>
+    <h1>To-Do List </h1>
     <div class="quote" id="quote">✨ Welcome! Let’s make today productive! ✨</div>
     <div class="counter" id="taskCounter">Total: 0 | Completed: 0</div>
 
@@ -127,6 +128,7 @@
         <ul id="taskList"></ul>
         <button onclick="saveTasks()">💾 Save Tasks</button>
         <button onclick="clearAllTasks()">🧹 Clear All</button>
+        <button onclick="changeTheme()">🎨 Change Theme</button>
 
         <p id="saveMessage" class="save-msg">Tasks saved successfully!</p>
     </div>
@@ -137,6 +139,7 @@
         const taskCounter = document.getElementById('taskCounter');
         const saveMessage = document.getElementById('saveMessage');
         const quote = document.getElementById('quote');
+        const body = document.body;
 
         const quotes = [
             "💪 You’ve got this!",
@@ -146,6 +149,10 @@
             "✨ Believe in yourself — you’re amazing!",
             "🌈 Every task done is a win!",
             "🌻 You’re doing great, keep going!"
+        ];
+
+        const colors = [
+            "#ffe6f2", "#e6f7ff", "#fff0f5", "#f9f2ec", "#e8f6ef", "#fffde7", "#f3e5f5"
         ];
 
         function showRandomQuote() {
@@ -219,6 +226,11 @@
                 alert("✨ All tasks cleared!");
                 quote.textContent = "🌼 Fresh start! You can do it!";
             }
+        }
+
+        function changeTheme() {
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            body.style.backgroundColor = randomColor;
         }
 
         taskInput.addEventListener('keypress', (e) => {
