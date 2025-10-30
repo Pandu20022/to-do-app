@@ -13,6 +13,7 @@
             align-items: center;
             padding: 50px;
             min-height: 100vh;
+            transition: background-color 0.5s ease;
         }
 
         h1 {
@@ -127,9 +128,13 @@
         <ul id="taskList"></ul>
         <button onclick="saveTasks()">💾 Save Tasks</button>
         <button onclick="clearAllTasks()">🧹 Clear All</button>
+        <button onclick="changeTheme()">🎨 Change Theme</button>
 
         <p id="saveMessage" class="save-msg">Tasks saved successfully!</p>
     </div>
+
+    <!-- Sound effects -->
+    <audio id="popSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9b06d6e9c4.mp3?filename=pop-94319.mp3"></audio>
 
     <script>
         const taskInput = document.getElementById('taskInput');
@@ -137,6 +142,8 @@
         const taskCounter = document.getElementById('taskCounter');
         const saveMessage = document.getElementById('saveMessage');
         const quote = document.getElementById('quote');
+        const popSound = document.getElementById('popSound');
+        const body = document.body;
 
         const quotes = [
             "💪 You’ve got this!",
@@ -147,6 +154,15 @@
             "🌈 Every task done is a win!",
             "🌻 You’re doing great, keep going!"
         ];
+
+        const colors = [
+            "#ffe6f2", "#e6f7ff", "#fff0f5", "#f9f2ec", "#e8f6ef", "#fffde7", "#f3e5f5"
+        ];
+
+        function playSound() {
+            popSound.currentTime = 0;
+            popSound.play();
+        }
 
         function showRandomQuote() {
             const random = Math.floor(Math.random() * quotes.length);
@@ -172,6 +188,7 @@
 
             li.addEventListener('click', () => {
                 li.classList.toggle('completed');
+                playSound();
                 updateCounter();
             });
 
@@ -190,6 +207,7 @@
             taskInput.value = "";
             updateCounter();
             showRandomQuote();
+            playSound();
         }
 
         function saveTasks() {
@@ -219,6 +237,12 @@
                 alert("✨ All tasks cleared!");
                 quote.textContent = "🌼 Fresh start! You can do it!";
             }
+        }
+
+        function changeTheme() {
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            body.style.backgroundColor = randomColor;
+            playSound();
         }
 
         taskInput.addEventListener('keypress', (e) => {
